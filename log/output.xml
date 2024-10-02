@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.13.0rc2 on win32)" generated="2024-10-02T23:39:42.453708" rpa="false" schemaversion="5">
+<suite id="s1" name="Section2WebTesting" source="C:\Users\anuwa\OneDrive\Desktop\Assignment_TTB_PS\TestScript\Section2WebTesting.robot">
+<test id="s1-t1" name="TS01 Get Quotes and Input Them into Notepad online" line="13">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2024-10-02T23:39:43.053925" level="INFO">${quotes} = []</msg>
+<var>${quotes}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.053650" elapsed="0.002446"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-02T23:39:43.077403" level="INFO">${body} = {'category': 'computers', 'X-Api-Key': 'bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB'}</msg>
+<var>${body}</var>
+<arg>category=computers</arg>
+<arg>X-Api-Key=bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.057192" elapsed="0.020330"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2024-10-02T23:39:43.862737" level="INFO">GET Request : url=https://api.api-ninjas.com/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ path_url=/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-10-02T23:39:43.862996" level="INFO">GET Response : url=https://api.api-ninjas.com/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '130', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Oct 2024 16:39:43 GMT', 'X-Amzn-Trace-Id': 'Root=1-66fd774f-6f90fb5a495abf6128d32b9f;Parent=74d86ab21bd74e3c;Sampled=0;Lineage=1:d891c757:0', 'x-amzn-RequestId': 'f4d3e180-60cd-46c4-bffb-992da306e2e0', 'Access-Control-Allow-Origin': '*', 'Allow': 'GET, OPTIONS, POST', 'Access-Control-Allow-Headers': '*', 'x-amz-apigw-id': 'fB-UfGcBvHcEC3A=', 'Access-Control-Allow-Methods': 'GET, OPTIONS, POST', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 28d4dcb25853a35fa204fedc8b7a6c00.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'BKK50-P2', 'X-Amz-Cf-Id': 'qphCkJHiTk_RntTpEJ-DG9rG9Zc9sj9YFuf_wZ64AvNyI5VtOSNFRQ=='} 
+ body=[{"quote": "To err is human - and to blame it on a computer is even more so.", "author": "Robert Orben", "category": "computers"}] 
+ </msg>
+<msg time="2024-10-02T23:39:43.863186" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_url}</arg>
+<arg>${body}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.077707" elapsed="0.785554"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.863474" elapsed="0.000210"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-02T23:39:43.864340" level="INFO">[{'quote': 'To err is human - and to blame it on a computer is even more so.', 'author': 'Robert Orben', 'category': 'computers'}]</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.863841" elapsed="0.000612"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2024-10-02T23:39:43.865094" level="INFO">${first_object} = {'quote': 'To err is human - and to blame it on a computer is even more so.', 'author': 'Robert Orben', 'category': 'computers'}</msg>
+<var>${first_object}</var>
+<arg>${response.json()}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.864593" elapsed="0.000582"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-02T23:39:43.865568" level="INFO">${quote} = To err is human - and to blame it on a computer is even more so.</msg>
+<var>${quote}</var>
+<arg>${first_object}</arg>
+<arg>quote</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.865316" elapsed="0.000323"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${quotes}</arg>
+<arg>${quote}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.865781" elapsed="0.000215"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2024-10-02T23:39:43.056889" elapsed="0.809186"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-02T23:39:43.866670" level="INFO">${body} = {'category': 'computers', 'X-Api-Key': 'bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB'}</msg>
+<var>${body}</var>
+<arg>category=computers</arg>
+<arg>X-Api-Key=bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.866423" elapsed="0.000318"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2024-10-02T23:39:44.204758" level="INFO">GET Request : url=https://api.api-ninjas.com/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ path_url=/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-10-02T23:39:44.204971" level="INFO">GET Response : url=https://api.api-ninjas.com/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '173', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Oct 2024 16:39:44 GMT', 'X-Amzn-Trace-Id': 'Root=1-66fd7750-7e26786f09c51c366b3f2817;Parent=71acf85efe93d5ed;Sampled=0;Lineage=1:d891c757:0', 'x-amzn-RequestId': '2e093dcc-4825-430f-ab9d-3873f14d5bb3', 'Access-Control-Allow-Origin': '*', 'Allow': 'GET, OPTIONS, POST', 'Access-Control-Allow-Headers': '*', 'x-amz-apigw-id': 'fB-UjEkYPHcEtEw=', 'Access-Control-Allow-Methods': 'GET, OPTIONS, POST', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 28d4dcb25853a35fa204fedc8b7a6c00.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'BKK50-P2', 'X-Amz-Cf-Id': '5_nY3NjCFQnYeoEvXs-6lOKPyqnh8geMRCUiYPSwWImxHcbub-DWIw=='} 
+ body=[{"quote": "When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.", "author": "Wietse Venema", "category": "computers"}] 
+ </msg>
+<msg time="2024-10-02T23:39:44.205573" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_url}</arg>
+<arg>${body}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2024-10-02T23:39:43.866881" elapsed="0.338814"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.205976" elapsed="0.000374"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-02T23:39:44.207286" level="INFO">[{'quote': 'When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.', 'author': 'Wietse Venema', 'category': 'computers'}]</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.206626" elapsed="0.000818"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2024-10-02T23:39:44.208402" level="INFO">${first_object} = {'quote': 'When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.', 'author': 'Wietse Venema', 'category': 'computers'}</msg>
+<var>${first_object}</var>
+<arg>${response.json()}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.207707" elapsed="0.000948"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-02T23:39:44.209371" level="INFO">${quote} = When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.</msg>
+<var>${quote}</var>
+<arg>${first_object}</arg>
+<arg>quote</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.209065" elapsed="0.000391"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${quotes}</arg>
+<arg>${quote}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.209617" elapsed="0.000213"/>
+</kw>
+<var name="${i}">1</var>
+<status status="PASS" start="2024-10-02T23:39:43.866262" elapsed="0.343662"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-02T23:39:44.210518" level="INFO">${body} = {'category': 'computers', 'X-Api-Key': 'bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB'}</msg>
+<var>${body}</var>
+<arg>category=computers</arg>
+<arg>X-Api-Key=bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.210274" elapsed="0.000322"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2024-10-02T23:39:44.908532" level="INFO">GET Request : url=https://api.api-ninjas.com/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ path_url=/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-10-02T23:39:44.908720" level="INFO">GET Response : url=https://api.api-ninjas.com/v1/quotes?category=computers&amp;X-Api-Key=bIF7IeOciA8Ug1fiwLROYw%3D%3DOcYET5Wvr3e5ounB 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '200', 'Connection': 'keep-alive', 'Date': 'Wed, 02 Oct 2024 16:39:44 GMT', 'X-Amzn-Trace-Id': 'Root=1-66fd7750-3ceab8f9002f34cd1679c81a;Parent=7e27ddd49ba8fd06;Sampled=0;Lineage=1:d891c757:0', 'x-amzn-RequestId': '81d3cfd0-2989-41c5-bc28-24bff88bb594', 'Access-Control-Allow-Origin': '*', 'Allow': 'GET, OPTIONS, POST', 'Access-Control-Allow-Headers': '*', 'x-amz-apigw-id': 'fB-UqEmQvHcEtgg=', 'Access-Control-Allow-Methods': 'GET, OPTIONS, POST', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 761b1a61e2092864064857bb50f15e90.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'BKK50-P2', 'X-Amz-Cf-Id': 'hLKCN7RXGa6wsi-ppl9T8btML8Ph99mTsYxq_goNBquZNThWNw1MUA=='} 
+ body=[{"quote": "Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers.", "author": "Eric Schmidt", "category": "computers"}] 
+ </msg>
+<msg time="2024-10-02T23:39:44.909255" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_url}</arg>
+<arg>${body}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.210745" elapsed="0.698598"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.909545" elapsed="0.000206"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-02T23:39:44.910364" level="INFO">[{'quote': "Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers.", 'author': 'Eric Schmidt', 'category': 'computers'}]</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.909892" elapsed="0.000578"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2024-10-02T23:39:44.911075" level="INFO">${first_object} = {'quote': "Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers.", 'author': 'Eric Schmidt', 'category': 'computers'}</msg>
+<var>${first_object}</var>
+<arg>${response.json()}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.910608" elapsed="0.000547"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-02T23:39:44.911514" level="INFO">${quote} = Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers.</msg>
+<var>${quote}</var>
+<arg>${first_object}</arg>
+<arg>quote</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.911294" elapsed="0.000294"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${quotes}</arg>
+<arg>${quote}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.911721" elapsed="0.000196"/>
+</kw>
+<var name="${i}">2</var>
+<status status="PASS" start="2024-10-02T23:39:44.210112" elapsed="0.701884"/>
+</iter>
+<var>${i}</var>
+<value>3</value>
+<status status="PASS" start="2024-10-02T23:39:43.056351" elapsed="1.855730"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-02T23:39:44.912431" level="INFO">['To err is human - and to blame it on a computer is even more so.', 'When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.', "Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers."]</msg>
+<arg>${quotes}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.912256" elapsed="0.000276"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-10-02T23:39:44.912956" level="INFO">Opening browser 'Chrome' to base url 'https://www.memonotepad.com/'.</msg>
+<arg>https://www.memonotepad.com/</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-10-02T23:39:44.912714" elapsed="5.350056"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-10-02T23:39:50.263651" level="INFO">Typing text '['To err is human - and to blame it on a computer is even more so.', 'When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.', "Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers."]' into text field '//div[@id='notes']'.</msg>
+<arg>//div[@id='notes']</arg>
+<arg>${quotes}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-02T23:39:50.263132" elapsed="1.271730"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-10-02T23:39:51.535668" level="INFO">Clicking button '//button[@id='action_trash']'.</msg>
+<arg>//button[@id='action_trash']</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-02T23:39:51.535203" elapsed="0.097861"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-02T23:39:54.634339" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-02T23:39:51.633388" elapsed="3.001406"/>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2024-10-02T23:39:54.670634" level="INFO">Element '//button[@class='btn confirm pull-right span4 trash appear']' is displayed.</msg>
+<arg>//button[@class='btn confirm pull-right span4 trash appear']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2024-10-02T23:39:54.635245" elapsed="0.035728"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-10-02T23:39:54.671895" level="INFO">Clicking button '//button[@class='btn confirm pull-right span4 trash appear']'.</msg>
+<arg>//button[@class='btn confirm pull-right span4 trash appear']</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-02T23:39:54.671432" elapsed="0.048056"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-02T23:39:57.720058" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-02T23:39:54.719719" elapsed="3.000604"/>
+</kw>
+<kw name="Element Text Should Not Be" owner="SeleniumLibrary">
+<msg time="2024-10-02T23:39:57.721466" level="INFO">Verifying element '//div[@id='notes']' does not contain exact text '['To err is human - and to blame it on a computer is even more so.', 'When I write software, I know that it will fail, either due to my own mistake, or due to some other cause.', "Your car should drive itself. It's amazing to me that we let humans drive cars... It's a bug that cars were invented before computers."]'.</msg>
+<arg>//div[@id='notes']</arg>
+<arg>${quotes}</arg>
+<doc>Verifies that element ``locator`` does not contain exact the text ``not_expected``.</doc>
+<status status="PASS" start="2024-10-02T23:39:57.720720" elapsed="0.023431"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-02T23:40:00.745370" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-02T23:39:57.744505" elapsed="3.001078"/>
+</kw>
+<status status="PASS" start="2024-10-02T23:39:43.052666" elapsed="17.693089"/>
+</test>
+<status status="PASS" start="2024-10-02T23:39:42.469785" elapsed="18.276619"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Section2WebTesting">Section2WebTesting</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
