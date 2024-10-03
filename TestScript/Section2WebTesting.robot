@@ -10,12 +10,12 @@ ${base_url}     https://api.api-ninjas.com/v1/quotes?
 *** Keywords ***
 
 *** Test Cases ***
-TS01 Get Quotes and Input Them into Notepad online
+TS01 Get Quotes and Input Them into Notepad Online
 #### To Get 3 Quotes
    ${quotes}    Create List
     FOR    ${i}    IN RANGE    3
-    ${body}    Create Dictionary    category=computers    X-Api-Key=bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB
-    ${response}=    GET  ${base_url}    ${body}
+    ${endpoint}    Create Dictionary    category=computers    X-Api-Key=bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB
+    ${response}=    GET  ${base_url}    ${endpoint}
     Status Should Be    200
    log   ${response.json()}
    ${first_object}=    Get From List    ${response.json()}    0  ## to get object from list (There's only one object in the list )
