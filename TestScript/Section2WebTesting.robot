@@ -3,16 +3,15 @@ Library         SeleniumLibrary
 Library         RequestsLibrary
 Library         Collections
 
-
 *** Variables ***
 ${base_url}     https://api.api-ninjas.com/v1/quotes?
+@{quotes}
+${note}      //div[@id='notes']
+${first_trash}     //button[@id='action_trash']
+${second_trash}     //button[@class='btn confirm pull-right span4 trash appear']
 
 *** Keywords ***
-
-*** Test Cases ***
-TS01 Get Quotes and Input Them into Notepad Online
-#### To Get 3 Quotes
-   ${quotes}    Create List
+Get 3 Quotes From API
     FOR    ${i}    IN RANGE    3
     ${endpoint}    Create Dictionary    category=computers    X-Api-Key=bIF7IeOciA8Ug1fiwLROYw==OcYET5Wvr3e5ounB
     ${response}=    GET  ${base_url}    ${endpoint}
@@ -23,24 +22,27 @@ TS01 Get Quotes and Input Them into Notepad Online
     Append To List    ${quotes}    ${quote}   ## to collect quote (3) to quotes
     END
      log   ${quotes}
-#    log   ${quotes[0]}
-#    log   ${quotes[1]}
-#    log   ${quotes[2]}
 
+Open Notepad Online Website
+    Open Browser     https://www.memonotepad.com/   Chrome
 
-   #### Add Quote into Notepad Online
-   Open Browser     https://www.memonotepad.com/   Chrome
-   Input Text    //div[@id='notes']     ${quotes}
-#   Input Text    //div[@id='notes']     ${quotes[1]}
-#   Input Text    //div[@id='notes']     ${quotes[2]}
-   #### Add Feature Delete
-   Click Button    //button[@id='action_trash']
+Add Quotes into Notepad Online
+    Input Text    ${note}      ${quotes}
+
+Delete Quotes from Notepad Online
+   Click Button    ${first_trash}
+   Wait Until Element Is Visible     ${second_trash}
+   Click Button   ${second_trash}
+
+Check That Quotes Have Been Deleted
    Sleep  3s
-   Element Should Be Visible   //button[@class='btn confirm pull-right span4 trash appear']
-   Click Button   //button[@class='btn confirm pull-right span4 trash appear']
-   Sleep  3s
-   Element Text Should NOT Be    //div[@id='notes']    ${quotes}      ## to make sure that quotes have been deleted
+   Element Text Should NOT Be    ${note}     ${quotes}      ## to make sure that quotes have been deleted
    Sleep  3s
 
-
-
+*** Test Cases ***
+TS01 Get Quotes and Input Them into Notepad Online
+   Get 3 Quotes From API
+   Open Notepad Online Website
+   Add Quotes into Notepad Online
+   Delete Quotes from Notepad Online
+   Check That Quotes Have Been Deleted
